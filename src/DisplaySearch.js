@@ -7,6 +7,7 @@ import DisplayBook from './DisplayBook'
 class DisplaySearch extends Component {
     static propTypes = {
 		shelves: PropTypes.array.isRequired,
+		shelfInfo: PropTypes.array.isRequired,
 		onMoveBook: PropTypes.func.isRequired
     }
 
@@ -32,7 +33,7 @@ class DisplaySearch extends Component {
 	}
 
 	render() {
-		const { shelves, onMoveBook } = this.props;
+		const { shelves, shelfInfo, onMoveBook } = this.props;
 		const { query, books } = this.state;
 
 		return (
@@ -59,9 +60,15 @@ class DisplaySearch extends Component {
   </div>
   <div className="search-books-results">
     <ol className="books-grid">
-		  {books.length ? books.map((book) => (
-			  <DisplayBook shelves={shelves} book={book} onMoveBook={onMoveBook} key={book.id}/>
-		  )) : (<p>No results</p>)}
+		  {books.length ? books.map((book) => {
+			  const theShelf = shelfInfo.filter(info => info.bookId === book.id).map(info => info.shelfId)[0]
+			  if (theShelf) {
+				  book.shelf=theShelf
+			  }
+			  return (
+				  <DisplayBook shelves={shelves} book={book} onMoveBook={onMoveBook} key={book.id}/>
+			  )
+		  }) : (<p>No results</p>)}
 	</ol>
   </div>
 </div>
