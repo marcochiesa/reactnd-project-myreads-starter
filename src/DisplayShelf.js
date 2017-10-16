@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
+import DisplayBook from './DisplayBook'
 
 class DisplayShelf extends Component {
   static propTypes = {
@@ -20,24 +21,7 @@ class DisplayShelf extends Component {
   <div className="bookshelf-books">
     <ol className="books-grid">
 		  {books.map((book) => (
-        <li key={book.id}>
-          <div className="book">
-            <div className="book-top">
-              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("' + book.imageLinks.thumbnail + '")' }}></div>
-              <div className="book-shelf-changer">
-                <select defaultValue={book.shelf} onChange={event => onMoveBook(book.id, event.target.value)}>
-                  <option value="none" disabled>Move to...</option>
-			  {shelves.map((shelf) => (
-				  <option value={shelf.id} key={shelf.id}>{shelf.title}</option>
-			  ))}
-                  <option value="none">None</option>
-                </select>
-              </div>
-            </div>
-            <div className="book-title">{book.title}</div>
-            <div className="book-authors">{book.authors.join(", ")}</div>
-          </div>
-        </li>
+			  <DisplayBook shelves={shelves} book={book} onMoveBook={onMoveBook} key={book.id}/>
 		  ))}
     </ol>
   </div>
