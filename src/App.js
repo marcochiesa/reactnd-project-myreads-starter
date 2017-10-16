@@ -30,7 +30,7 @@ class BooksApp extends React.Component {
 		  }
 	  });
 
-	  theBook = this.state.books.filter(book => book.id ===bookId)[0].id;
+	  const theBook = this.state.books.filter(book => book.id ===bookId)[0].id;
 	  BooksAPI.update(theBook, shelfId)
   }
 
