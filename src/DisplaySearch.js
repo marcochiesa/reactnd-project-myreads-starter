@@ -68,9 +68,7 @@ class DisplaySearch extends Component {
     <ol className="books-grid">
 		  {books.length ? books.map((book) => {
 			  const theShelf = shelfInfo.filter(info => info.bookId === book.id).map(info => info.shelfId)[0]
-			  if (theShelf) {
-				  book.shelf=theShelf
-			  }
+			  book.shelf = theShelf || 'none' //unknown/unshelved books default to None in book control
 			  return (
 				  <DisplayBook shelves={shelves} book={book} onMoveBook={onMoveBook} key={book.id}/>
 			  )
