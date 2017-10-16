@@ -5,11 +5,12 @@ import sortBy from 'sort-by'
 class DisplayShelf extends Component {
   static propTypes = {
 	  shelfTitle: PropTypes.string.isRequired,
+	  shelves: PropTypes.array.isRequired,
       books: PropTypes.array.isRequired
   }
 
   render() {
-	  const { shelfTitle, books } = this.props;
+	  const { shelfTitle, shelves, books } = this.props;
 	  books.sort(sortBy('title'));
 	  
 	  return (
@@ -23,11 +24,11 @@ class DisplayShelf extends Component {
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("' + book.imageLinks.thumbnail + '")' }}></div>
               <div className="book-shelf-changer">
-                <select>
+                <select defaultValue={book.shelf}>
                   <option value="none" disabled>Move to...</option>
-                  <option value="currentlyReading">Currently Reading</option>
-                  <option value="wantToRead">Want to Read</option>
-                  <option value="read">Read</option>
+			  {shelves.map((shelf) => (
+				  <option value={shelf.id} key={shelf.id}>{shelf.title}</option>
+			  ))}
                   <option value="none">None</option>
                 </select>
               </div>

@@ -21,7 +21,11 @@ class BooksApp extends React.Component {
     })
   }
   render() {
-	  const shelfs = ["Currently Reading", "Want to Read", "Read"];
+	  const shelves = [
+		  {id: "currentlyReading", title: "Currently Reading"},
+		  {id: "wantToRead", title: "Want to Read"},
+		  {id: "read", title: "Read"}
+	  ];
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -52,8 +56,8 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-				{shelfs.map((shelf) => (
-					<DisplayShelf shelfTitle={shelf} books={this.state.books} key={shelf}/>
+				{shelves.map((shelf) => (
+					<DisplayShelf shelfTitle={shelf.title} books={this.state.books.filter(book => shelf.id === book.shelf)} shelves={shelves} key={shelf.id}/>
 				))}
               </div>
             </div>
