@@ -27,9 +27,15 @@ class DisplaySearch extends Component {
     }
 
 	updateBooks = (query) => {
-		BooksAPI.search(query, 20).then((books) => {
-			 this.setState({ books: Array.isArray(books) ? books : [] })
-		})
+		if (query) {
+			BooksAPI.search(query, 20).then((books) => {
+				 this.setState({
+					 books: Array.isArray(books) ? books : [] //error object when no matching results
+				 })
+			})
+		} else {
+			this.setState({books: []})
+		}
 	}
 
 	render() {
