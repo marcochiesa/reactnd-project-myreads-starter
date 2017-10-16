@@ -22,7 +22,6 @@ class BooksApp extends React.Component {
   }
   
   onMoveBook = (bookId, shelfId) => {
-	  console.log(this);
 	  this.setState(prevState => {
 		  const theBook = prevState.books.filter(book => book.id === bookId)[0];
 		  theBook.shelf = shelfId;
@@ -30,6 +29,9 @@ class BooksApp extends React.Component {
 			  books: prevState.books.filter(book => book.id !== bookId).concat([theBook])
 		  }
 	  });
+
+	  theBook = this.state.books.filter(book => book.id ===bookId)[0].id;
+	  BooksAPI.update(theBook, shelfId)
   }
 
   render() {
