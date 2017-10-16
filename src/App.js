@@ -20,6 +20,18 @@ class BooksApp extends React.Component {
       this.setState({ books })
     })
   }
+  
+  onMoveBook = (bookId, shelfId) => {
+	  console.log(this);
+	  this.setState(prevState => {
+		  const theBook = prevState.books.filter(book => book.id === bookId)[0];
+		  theBook.shelf = shelfId;
+		  return {
+			  books: prevState.books.filter(book => book.id !== bookId).concat([theBook])
+		  }
+	  });
+  }
+
   render() {
 	  const shelves = [
 		  {id: "currentlyReading", title: "Currently Reading"},
@@ -57,7 +69,7 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
 				{shelves.map((shelf) => (
-					<DisplayShelf shelfTitle={shelf.title} books={this.state.books.filter(book => shelf.id === book.shelf)} shelves={shelves} key={shelf.id}/>
+					<DisplayShelf shelfTitle={shelf.title} books={this.state.books.filter(book => shelf.id === book.shelf)} shelves={shelves} onMoveBook={this.onMoveBook} key={shelf.id}/>
 				))}
               </div>
             </div>

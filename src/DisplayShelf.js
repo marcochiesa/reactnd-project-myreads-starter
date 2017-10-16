@@ -6,11 +6,12 @@ class DisplayShelf extends Component {
   static propTypes = {
 	  shelfTitle: PropTypes.string.isRequired,
 	  shelves: PropTypes.array.isRequired,
-      books: PropTypes.array.isRequired
+	  books: PropTypes.array.isRequired,
+	  onMoveBook: PropTypes.func.isRequired
   }
 
   render() {
-	  const { shelfTitle, shelves, books } = this.props;
+	  const { shelfTitle, shelves, books, onMoveBook} = this.props;
 	  books.sort(sortBy('title'));
 	  
 	  return (
@@ -24,7 +25,7 @@ class DisplayShelf extends Component {
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("' + book.imageLinks.thumbnail + '")' }}></div>
               <div className="book-shelf-changer">
-                <select defaultValue={book.shelf}>
+                <select defaultValue={book.shelf} onChange={event => onMoveBook(book.id, event.target.value)}>
                   <option value="none" disabled>Move to...</option>
 			  {shelves.map((shelf) => (
 				  <option value={shelf.id} key={shelf.id}>{shelf.title}</option>
