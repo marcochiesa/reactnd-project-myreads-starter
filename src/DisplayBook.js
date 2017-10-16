@@ -15,9 +15,9 @@ class DisplayBook extends Component {
 <li key={book.id}>
   <div className="book">
     <div className="book-top">
-      <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("' + book.imageLinks.thumbnail + '")' }}></div>
+		  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.imageLinks && 'url("' + book.imageLinks.thumbnail + '")' }}></div>
       <div className="book-shelf-changer">
-        <select defaultValue={book.shelf} onChange={event => onMoveBook(book.id, event.target.value)}>
+        <select defaultValue={book.shelf} onChange={event => onMoveBook(book, event.target.value)}>
           <option value="none" disabled>Move to...</option>
 	  {shelves.map((shelf) => (
 		  <option value={shelf.id} key={shelf.id}>{shelf.title}</option>
