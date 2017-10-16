@@ -1,5 +1,5 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 import DisplayShelf from './DisplayShelf'
 
@@ -12,12 +12,14 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-	  books: [
-		  {id: 1, title: "Test1", authors: ["Mike", "Jane"], imageLinks: {thumbnail: "http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"}},
-		  {id: 2, title: "Test2", authors: ["Sarah", "JOhn"], imageLinks: {thumbnail: "http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"}}
-	  ]
+	  books: []
   }
 
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
+  }
   render() {
 	  const shelfs = ["Currently Reading", "Want to Read", "Read"];
     return (
